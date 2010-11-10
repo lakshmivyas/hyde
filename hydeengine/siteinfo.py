@@ -350,6 +350,8 @@ class ContentNode(SiteNode):
             self.listing_page = page
         self.resources.append(page)
         page.node.sort()
+        if not page.module == self.site:
+            page.module.flatten_and_sort()
         return page
 
     def sort(self):
@@ -366,6 +368,21 @@ class ContentNode(SiteNode):
                 prev = page
         for node in self.children:
             node.sort()
+
+    def flatten_and_sort(self):
+        flattened_pages = []
+        prev_in_module = None
+        for page in self.walk_pages():
+            flattened_pages.append(page)
+        flattened_pages.sort(key=operator.attrgetter("created"), reverse=True)
+        for page in flattened_pages:
+            page.next_in_module = None
+            if page.display_in_list:
+                if prev_in_module:
+                    prev_in_module.next_in_module = page
+                    page.prev_in_module = prev_in_module
+                page.next_in_module = None
+                prev_in_module = page
 
     @property
     def target_folder(self):
