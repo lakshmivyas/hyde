@@ -395,6 +395,7 @@ class Generator(object):
             deploy_folder.make()
         add_to_builtins('hydeengine.templatetags.hydetags')
         add_to_builtins('hydeengine.templatetags.aym')
+        add_to_builtins('hydeengine.templatetags.rest')
         add_to_builtins('hydeengine.templatetags.typogrify')
         self.create_siteinfo()
 

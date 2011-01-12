@@ -83,31 +83,6 @@ class MarkdownNode(template.Node):
         return md.convert(output)
 
 
-@register.tag(name="restructuredtext")
-def restructuredtextParser(parser, token):
-    nodelist = parser.parse(('endrestructuredtext',))
-    parser.delete_first_token()
-    return RestructuredTextNode(nodelist)
-
-class RestructuredTextNode(template.Node):
-    def __init__(self, nodelist):
-        self.nodelist = nodelist
-
-    def render(self, context):
-        output = self.nodelist.render(context)
-        try:
-            from docutils.core import publish_parts
-        except ImportError:
-            print u"Requires docutils library to use reStructuredText tag."
-            raise
-        overrides = {}
-        if hasattr(settings, 'RST_SETTINGS_OVERRIDES'):
-            overrides = settings.RST_SETTINGS_OVERRIDES
-        parts = publish_parts(source=output, writer_name="html4css1",
-                settings_overrides=overrides)
-        return safestring.mark_safe(parts.get('fragment'))
-
-
 @register.tag(name="asciidoc")
 def asciidocParser(parser, token):
     nodelist = parser.parse(('endasciidoc',))
