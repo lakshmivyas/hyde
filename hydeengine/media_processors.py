@@ -148,9 +148,9 @@ class CoffeeScript:
         except CalledProcessError, e:
             print 'Syntax Error when calling CoffeeScript:', e
             return None
-        out_file = File(resource.source_file.path_without_extension + ".css")
+        out_file = File(resource.source_file.path_without_extension + ".js")
         if not out_file.exists:
-            print 'Error Occurred when processing with Stylus'
+            print 'Error Occurred when processing with CoffeeScript'
         else:
             resource.source_file.delete()
             resource.source_file = out_file
