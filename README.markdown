@@ -102,7 +102,7 @@ Template processor allows the use of context variables inside your media files.
 
 #### YUI Compressor
 
-Runs through the all the files defined in the configuration associated with ``'hydeengine.media_processors.YUICompressor'`` and compresses them.
+Runs through all the files defined in the configuration associated with ``'hydeengine.media_processors.YUICompressor'`` and compresses them.
 
 [yuic]: http://developer.yahoo.com/yui/compressor/
 
