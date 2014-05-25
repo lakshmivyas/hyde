@@ -24,6 +24,11 @@ from processor import Processor
 from siteinfo import SiteInfo
 from url import clean_url
 
+try:
+    from collections import OrderedDict
+except ImportError:
+    from _collections import OrderedDict
+
 class _HydeDefaults:
     GENERATE_CLEAN_URLS = False
     GENERATE_ABSOLUTE_FS_URLS = False
@@ -360,7 +365,7 @@ class Generator(object):
             try:
                 subprocess.call([settings.GROWL, "-n", "Hyde", "-t", title, "-m", message])
             except:
-                pass    
+                pass
         elif hasattr(settings, "NOTIFY") and settings.NOTIFY and File(settings.NOTIFY).exists:
             try:
                 subprocess.call([settings.NOTIFY, "Hyde: " + title, message])
